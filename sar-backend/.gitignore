@@ -1,0 +1,13 @@
+.idea/
+node_modules/
+build/
+tmp/
+temp/
+database/
+
+*.js.map
+postgres.session.sql
+
+prisma/dbml
+
+openapi*.json
