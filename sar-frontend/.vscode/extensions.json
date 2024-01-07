@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "gruntfuggly.todo-tree",
+    "dbaeumer.vscode-eslint",
+    "zixuanchen.vitest-explorer",
+    "usernamehw.errorlens",
+    "yoavbls.pretty-ts-errors",
+    "eamodio.gitlens",
+  ]
+}
