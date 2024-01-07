@@ -7,7 +7,7 @@ import { MissionsPage } from "./pages/MissionsPage";
 import { TrainingPage } from "./pages/TrainingPage";
 
 export const paths = {
-  home: "/",
+  home: "/home",
   missions: "/missions",
   training: "/training",
   account: "/account",

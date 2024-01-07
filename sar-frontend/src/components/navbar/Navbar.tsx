@@ -8,7 +8,7 @@ export const Navbar: FC = () => {
     <HStack justify={"full"} backgroundColor={"gray"}>
       <Link href={paths.home}>
         <Image
-          src="public/monosar.webp"
+          src="/monosar.webp"
           alt="Monosar Logo"
           maxHeight={"80px"}
         />

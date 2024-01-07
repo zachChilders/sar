@@ -2,11 +2,19 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { setupSwagger } from './platform/swagger/setup-swagger.util';
 import { ConsoleLogger } from '@nestjs/common';
+import { patchNestJsSwagger } from 'nestjs-zod';
 
-async function bootstrap() {
+// patch in support for zod schema
+patchNestJsSwagger();
+
+const bootstrap = async () => {
   const logger = new ConsoleLogger('app');
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: ['http://localhost:5174'],
+    },
+  });
 
   setupSwagger({
     title: 'MonoSar API',
@@ -19,5 +27,5 @@ async function bootstrap() {
   });
 
   await app.listen(8080);
-}
+};
 bootstrap();

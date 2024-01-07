@@ -1,12 +1,6 @@
 import { FunctionComponent } from "react";
-import { useAppControllerGetHelloQuery } from "services";
+import { Text } from "@chakra-ui/react";
 
-export const HomePage: FunctionComponent = () => {
-  const { data } = useAppControllerGetHelloQuery();
-
-  return (
-    <div>
-      <h1>{data as string}</h1>
-    </div>
-  );
+export const HomePage: FunctionComponent = (): React.ReactElement => {
+  return <Text>Hello World</Text>;
 };
