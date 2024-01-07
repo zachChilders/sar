@@ -9,6 +9,8 @@
     "prebuild": "rimraf build",
     "build": "nest build",
     "dev": "nest start --watch --watchAssets",
+    "db:reset": "dotenv -e .env -c local -- prisma migrate reset",
+    "db:seed": "dotenv -e .env -c local -- prisma db seed",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -22,12 +24,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@nestjs/class-validator": "^0.13.4",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.1.17",
     "@prisma/client": "^5.7.0",
+    "dotenv-cli": "^7.3.0",
     "nestjs-zod": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -76,5 +80,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed/main.ts"
   }
 }

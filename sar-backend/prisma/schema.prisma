@@ -12,9 +12,49 @@ datasource db {
 
 model Member {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
+  firstName String
+  lastName  String
+  ham       String?
+  address   String
+  city      String
+  state     String
+  zipcode   String
+  email     String
+  joined    DateTime @default(now())
+  phoneHome String
+  phoneWork String?
+  phoneCell String?
+  status    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Callout {
+  calloutId      Int      @id @default(autoincrement())
+  calloutMessage String
+  createdAt      DateTime @default(now())
+}
+
+model Training {
+  trainingId    Int      @id @default(autoincrement())
+  trainingTitle String
+  createdAt     DateTime @default(now())
+}
+
+model TrainingClass {
+  trainingClassId Int      @id @default(autoincrement())
+  trainingId      Int
+  trainingDate    DateTime
+  createdAt       DateTime @default(now())
+}
+
+model Operation {
+  id             Int      @id @default(autoincrement())
+  number         Int
+  sequenceNumber Int      @default(autoincrement())
+  start          DateTime
+  end            DateTime
+  title          String
+  notes          String
+  createdAt      DateTime @default(now())
 }

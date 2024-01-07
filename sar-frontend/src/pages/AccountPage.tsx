@@ -1,17 +1,24 @@
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { FunctionComponent } from "react";
-import { useAccountControllerGetMembersQuery } from "services";
+import { useMemberControllerGetMembersQuery } from "services";
 
 export const AccountPage: FunctionComponent = () => {
-  const { data } = useAccountControllerGetMembersQuery();
+  const { data } = useMemberControllerGetMembersQuery();
   if (!data) return <Text>Loading...</Text>;
 
   return (
     <Box>
-      <Text>Member List</Text>
-      {data.map((member) => (
-        <Text>{member.name}</Text>
-      ))}
+      <Heading>Account</Heading>
     </Box>
   );
 };
