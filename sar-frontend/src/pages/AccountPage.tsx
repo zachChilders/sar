@@ -4,11 +4,14 @@ import { useAccountControllerGetMembersQuery } from "services";
 
 export const AccountPage: FunctionComponent = () => {
   const { data } = useAccountControllerGetMembersQuery();
- 
+  if (!data) return <Text>Loading...</Text>;
+
   return (
     <Box>
       <Text>Member List</Text>
-      <Text>{JSON.stringify(data)}</Text>
+      {data.map((member) => (
+        <Text>{member.name}</Text>
+      ))}
     </Box>
   );
 };
