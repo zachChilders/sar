@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { mapOperationToEntity } from './operation.mapper';
 import { Operation as Entity } from './entities/operation.entity';
+import { PrismaService } from 'src/integrations/prisma/prisma.service';
 
 @Injectable()
 export class OperationService {

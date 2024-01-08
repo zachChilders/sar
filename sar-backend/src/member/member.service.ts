@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Member as Entity } from './entities/member.entity';
 import { mapMemberToEntity } from './member.mapper';
+import { PrismaService } from 'src/integrations/prisma/prisma.service';
 @Injectable()
 export class MemberService {
   constructor(private readonly prisma: PrismaService) {}

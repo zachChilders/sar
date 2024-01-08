@@ -10,6 +10,7 @@ type Params = {
 export const seedMember = (params: Params) =>
   prisma.member.create({
     data: {
+      auth0Id: faker.string.uuid(),
       email: params.email ?? faker.internet.email(),
       firstName: params.firstName ?? faker.person.firstName(),
       lastName: params.lastName ?? faker.person.lastName(),

@@ -10,8 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum MemberStatus {
+  ACTIVE
+  INACTIVE
+}
+
 model Member {
-  id        Int      @id @default(autoincrement())
+  id        Int          @id @default(autoincrement())
+  auth0Id   String       @unique
   firstName String
   lastName  String
   ham       String?
@@ -20,13 +26,14 @@ model Member {
   state     String
   zipcode   String
   email     String
-  joined    DateTime @default(now())
+  joined    DateTime     @default(now())
   phoneHome String
   phoneWork String?
   phoneCell String?
-  status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status    MemberStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+  deletedAt DateTime?
+  updatedAt DateTime     @updatedAt
 }
 
 model Callout {
