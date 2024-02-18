@@ -26,4 +26,10 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @Public()
+  @Post('register')
+  createUser(@Body() signIn: SignIn) {
+    return this.authService.createUser(signIn.email, signIn.password);
+  }
 }
