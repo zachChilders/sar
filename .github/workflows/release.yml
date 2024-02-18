@@ -47,7 +47,6 @@ jobs:
           pushd ./sar-backend
           npm ci
           npm run build
-          npm run gen
           popd
 
       - name: Build client
@@ -60,7 +59,6 @@ jobs:
           popd
         env:
           NODE_OPTIONS: "--max_old_space_size=8192"
-          VITE_BUILD_NUMBER: ${{ github.run_number }}
 
       - name: Pack app
         shell: bash

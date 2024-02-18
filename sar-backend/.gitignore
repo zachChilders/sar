@@ -10,5 +10,4 @@ postgres.session.sql
 
 prisma/dbml
 
-openapi*.json
 .DS_Store
