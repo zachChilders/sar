@@ -21,9 +21,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: datumadmin
-          POSTGRES_PASSWORD: datumadmin
-          POSTGRES_DB: datum-api
+          POSTGRES_USER: saradmin
+          POSTGRES_PASSWORD: saradmin
+          POSTGRES_DB: sar-api
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -40,11 +40,6 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: "**/package-lock.json"
-
-      - name: Write Build Version
-        shell: bash
-        run: |
-          echo "{\"buildNumber\": \"${{ github.run_number }}\"}" > ./api/src/platform/build.json
 
       - name: Build API
         shell: bash
@@ -115,7 +110,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ secrets.API_APP_NAME }}
+          app-name: monocountysar
           slot-name: production
           publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
           package: app.zip
