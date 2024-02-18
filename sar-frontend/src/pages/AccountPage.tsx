@@ -1,24 +1,22 @@
-import {
-  Box,
-  Heading,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Button, Heading } from "@chakra-ui/react";
+import { paths } from "RootPage";
 import { FunctionComponent } from "react";
-import { useMemberControllerGetMembersQuery } from "services";
+import { useNavigate } from "react-router-dom";
 
 export const AccountPage: FunctionComponent = () => {
-  const { data } = useMemberControllerGetMembersQuery();
-  if (!data) return <Text>Loading...</Text>;
+  const navigate = useNavigate();
 
   return (
     <Box>
       <Heading>Account</Heading>
+      <Button
+        onClick={() => {
+          localStorage.removeItem("userProfile");
+          navigate(paths.home);
+        }}
+      >
+        Logout
+      </Button>
     </Box>
   );
 };

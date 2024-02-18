@@ -6,6 +6,7 @@ import { AccountPage } from "./pages/AccountPage";
 import { OperationsPage } from "./pages/OperationsPage";
 import { TrainingPage } from "./pages/TrainingPage";
 import { CalloutListPage } from "pages/CalloutListPage";
+import { LoginPage } from "pages/LoginPage";
 
 export const paths = {
   home: "/home",
@@ -13,6 +14,7 @@ export const paths = {
   training: "/training",
   calloutList: "/callout-list",
   account: "/account",
+  login: "/login",
 };
 
 export const RootPage: React.FC = () => (
@@ -24,6 +26,8 @@ export const RootPage: React.FC = () => (
       <Route path={paths.training} element={<TrainingPage />} />
       <Route path={paths.calloutList} element={<CalloutListPage />} />
       <Route path={paths.account} element={<AccountPage />} />
+      <Route path={paths.login} element={<LoginPage />} />
+      <Route path="*" element={<HomePage />} />
     </Routes>
   </Flex>
 );
