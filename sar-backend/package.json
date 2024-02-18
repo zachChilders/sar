@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf build",
     "build": "nest build",
+    "gen": "GEN=true nest start",
     "dev": "nest start --watch --watchAssets",
     "db:reset": "dotenv -e .env -c local -- prisma migrate reset",
     "db:seed": "dotenv -e .env -c local -- prisma db seed",
