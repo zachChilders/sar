@@ -68,7 +68,7 @@ jobs:
 
           mkdir ./root
           cp -R ./sar-backend/build ./sar-backend/prisma ./sar-backend/package*.json ./root
-          cp -R ./sar-frontend/build ./root/client
+          cp -R ./sar-frontend/dist ./root/client
 
           pushd ./root
           npm ci --production
