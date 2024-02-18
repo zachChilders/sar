@@ -53,7 +53,7 @@ jobs:
       - name: Build client
         shell: bash
         run: |
-          pushd ./web-client
+          pushd ./sar-frontend
           npm ci
           npm run gen
           npm run build
@@ -69,8 +69,8 @@ jobs:
           apt-get install zip
 
           mkdir ./root
-          cp -R ./api/dist ./api/prisma ./api/package*.json ./root
-          cp -R ./web-client/build ./root/client
+          cp -R ./sar-backend/dist ./sar-backend/prisma ./sar-backend/package*.json ./root
+          cp -R ./sar-frontend/build ./root/client
 
           pushd ./root
           npm ci --production
