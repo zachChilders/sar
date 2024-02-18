@@ -22,7 +22,6 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: saradmin
-          POSTGRES_PASSWORD: saradmin
           POSTGRES_DB: sar-api
         options: >-
           --health-cmd pg_isready
