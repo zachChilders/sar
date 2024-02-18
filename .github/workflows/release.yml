@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - release
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+
+    container: node
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: datumadmin
+          POSTGRES_PASSWORD: datumadmin
+          POSTGRES_DB: datum-api
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      POSTGRES_HOST: postgres
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Write Build Version
+        shell: bash
+        run: |
+          echo "{\"buildNumber\": \"${{ github.run_number }}\"}" > ./api/src/platform/build.json
+
+      - name: Build API
+        shell: bash
+        run: |
+          pushd ./api
+          npm ci
+          npm run build
+          npm run gen
+          popd
+
+      - name: Build client
+        shell: bash
+        run: |
+          pushd ./web-client
+          npm ci
+          npm run gen
+          npm run build
+          popd
+        env:
+          NODE_OPTIONS: "--max_old_space_size=8192"
+          VITE_BUILD_NUMBER: ${{ github.run_number }}
+
+      - name: Pack app
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install zip
+
+          mkdir ./root
+          cp -R ./api/dist ./api/prisma ./api/package*.json ./root
+          cp -R ./web-client/build ./root/client
+
+          pushd ./root
+          npm ci --production
+          zip --symlinks -r app.zip ./*
+          popd
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: ./root/app.zip
+          if-no-files-found: error
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: main
+    concurrency: main
+    if: github.ref == 'refs/heads/main'
+    needs: pack
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+      - name: Unpack migrations
+        run: unzip app.zip prisma/* package*.json
+
+      - name: Deploy migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.API_APP_NAME }}
+          slot-name: production
+          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          package: app.zip
