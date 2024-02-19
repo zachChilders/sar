@@ -71,7 +71,6 @@ jobs:
           cp -R ./sar-frontend/dist ./root/client
 
           pushd ./root
-          npm install -g @nestjs/cli
           npm ci --production
           zip --symlinks -r app.zip ./*
           popd
