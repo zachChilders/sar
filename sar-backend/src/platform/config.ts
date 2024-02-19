@@ -11,7 +11,7 @@ export const config = z
   .object({
     PORT: z.coerce.number().default(8080),
     JWT_SECRET: z.string().min(1),
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.string(),
     PRISMA_LOG_LEVELS: z
       .string()
       .optional()
