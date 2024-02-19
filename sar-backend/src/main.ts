@@ -12,7 +12,11 @@ const bootstrap = async () => {
 
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: ['http://localhost:5173'],
+      origin: [
+        'http://localhost:3000',
+        'https://monocountysar.azurewebsites.net',
+        'https://app.monosar.org',
+      ],
     },
   });
 
