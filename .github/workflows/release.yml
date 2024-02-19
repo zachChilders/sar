@@ -72,7 +72,6 @@ jobs:
 
           pushd ./root
           npm ci --production
-          chmod +x ./node_modules/@nestjs/cli/bin
           zip --symlinks -r app.zip ./*
           popd
 

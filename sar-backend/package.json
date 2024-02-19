@@ -13,7 +13,7 @@
     "db:reset": "dotenv -e .env -c local -- prisma migrate reset",
     "db:seed": "dotenv -e .env -c local -- prisma db seed",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "node dist/src/main",
+    "start": "node build/src/main",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node build/main",
