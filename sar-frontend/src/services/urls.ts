@@ -59,6 +59,6 @@ const getPath = <P extends Path>(
 
 export const apiUrl = createEnvConfig({
   development: "http://localhost:8080",
-  production: "https://datum-prod.azurewebsites.us",
+  production: "https://monocountysar.azurewebsites.net",
 });
 
