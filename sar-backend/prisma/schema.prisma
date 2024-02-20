@@ -4,7 +4,6 @@
 generator client {
   provider = "prisma-client-js"
 
-
   // OpenSSL support varies across hosted environments
   binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
 }
@@ -14,12 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  Member
+  Admin
+}
+
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
+  id       Int    @id @default(autoincrement())
+  email    String @unique
   password String
+  memberId Int
+  role     Role[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Member Member @relation(fields: [memberId], references: [id])
 }
 
 model Member {
@@ -37,8 +46,11 @@ model Member {
   phoneWork String?
   phoneCell String?
   status    String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  User User[]
 }
 
 model Callout {
@@ -69,4 +81,11 @@ model Operation {
   title          String
   notes          String
   createdAt      DateTime @default(now())
+}
+
+model MemberOperation {
+  id          Int      @id @default(autoincrement())
+  memberId    Int
+  operationId Int
+  createdAt   DateTime @default(now())
 }
